@@ -1,0 +1,5 @@
+[D-BUS Service]
+Name=org.isoftlinux.Update
+Exec=@CMAKE_INSTALL_FULL_BINDIR@/isoft-update-daemon
+User=root
+SystemdService=isoft-update-daemon.service

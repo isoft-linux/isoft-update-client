@@ -1,0 +1,139 @@
+<!DOCTYPE node PUBLIC
+"-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+"http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd" >
+<node name="/" xmlns:doc="http://www.freedesktop.org/dbus/1.0/doc.dtd">
+  <interface name="org.isoftlinux.Update">
+    <property name="DaemonVersion" type="s" access="read">
+    </property>
+
+    <property name="UpdateEnable" type="b" access="read">
+    </property>
+
+    <property name="UpdateDuration" type="x" access="read">
+    </property>
+    
+    <property name="AutoDownload" type="b" access="read">
+    </property>
+    
+    <property name="AutoInstall" type="b" access="read">
+    </property>
+
+    <method name="SetUpdateEnable">
+      <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
+      <arg type="b" name="enable" direction="in">
+      </arg>
+      <arg type="b" name="result" direction="out">
+      </arg>
+    </method>
+
+    <method name="SetUpdateDuration">
+      <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
+      <arg type="x" name="duration" direction="in">
+      </arg>
+      <arg type="b" name="result" direction="out">
+      </arg>
+    </method>
+    
+    <method name="SetAutoDownload">
+      <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
+      <arg type="b" name="autoable" direction="in">
+      </arg>
+      <arg type="b" name="result" direction="out">
+      </arg>
+    </method>
+    
+    <method name="SetAutoInstall">
+      <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
+      <arg type="b" name="autoable" direction="in">
+      </arg>
+      <arg type="b" name="result" direction="out">
+      </arg>
+    </method>
+
+    <method name="CheckUpdate">
+      <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
+      <arg type="b" name="result" direction="out">
+      </arg>
+    </method>
+
+    <method name="DownloadUpdate">
+      <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
+      <arg type="s" name="file" direction="in">
+      </arg>
+      <arg type="b" name="result" direction="out">
+      </arg>
+    </method>
+
+    <method name="AddUpdate">
+      <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
+      <arg type="s" name="file" direction="in">
+      </arg>
+      <arg type="b" name="result" direction="out">
+      </arg>
+    </method>
+
+    <method name="InstallUpdate">
+      <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
+      <arg type="b" name="result" direction="out">
+      </arg>
+    </method>
+
+    <method name="SaveConfFile">
+      <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
+      <arg type="b" name="result" direction="out">
+      </arg>
+    </method>
+
+    <method name="CleanUptRecord">
+      <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
+      <arg type="b" name="result" direction="out">
+      </arg>
+    </method>
+
+    <signal name="UpdateEnableChanged">
+      <arg name="enable" type="b">
+      </arg>
+    </signal>
+
+    <signal name="Error">
+      <arg name="error" type="x">
+      </arg>
+      <arg name="details" type="s">
+      </arg>
+      <arg name="errcode" type="x">
+      </arg>
+    </signal>
+
+    <signal name="CheckUpdateFinished">
+      <arg name="file" type="s">
+      </arg>
+      <arg name="latest" type="x">
+      </arg>
+    </signal>
+
+    <signal name="Finished">
+      <arg name="status" type="x">
+      </arg>
+    </signal>
+    
+    <signal name="TypeChanged">
+      <arg name="status" type="x">
+      </arg>
+    </signal>
+
+    <signal name="PercentChanged">
+      <arg name="status" type="x">
+      </arg>
+      <arg name="file" type="s">
+      </arg>
+      <arg name="percent" type="d">
+      </arg>
+    </signal>
+
+    <signal name="NeedReboot">
+      <arg name="need" type="b">
+      </arg>
+    </signal>
+
+  </interface>
+</node>

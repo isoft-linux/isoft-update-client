@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<update>
+  <id>2</id>
+  <type>update</type>
+  <arch>x86_64</arch>
+  <date>2015-09-16</date>
+  <osversion>4.0</osversion>
+  <summary>this is summary for update.</summary>
+  <summary lang="zh_CN">这是关于本次更新的综述。</summary>
+  <description>
+    <item>fix some very inmportant bug.</item>
+    <item>update some software.</item>
+    <item>optimize system feature.</item>
+  </description>
+  <description lang="zh_CN">
+    <item>修复一些漏洞</item>
+    <item>更新部分软件。</item>
+    <item>优化了系统特性。</item>
+  </description>
+  <packages>
+    <rpm>
+      <filename>apt-0.5.15lorg3.95-19.git522.x86_64.rpm</filename>
+      <md5sum>69c10da22410d7f50ba521c018f1d271</md5sum>
+    </rpm>
+  </packages>
+  <prescript>false</prescript>
+  <postscript>false</postscript>
+  <needreboot>false</needreboot>
+</update>

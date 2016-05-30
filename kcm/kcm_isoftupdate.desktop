@@ -1,0 +1,20 @@
+[Desktop Entry]
+Icon=system-software-update
+Categories=QT;KDE;X-KDE-settings-system;
+X-KDE-ParentApp=kcontrol
+X-KDE-Library=kcm_isoftupdate
+X-KDE-System-Settings-Parent-Category=system-administration
+X-KDE-Weight=40
+X-DocPath=isoftupdate/index.html
+
+Type=Service
+X-KDE-ServiceTypes=KCModule
+
+Exec=kcmshell5 kcm_isoftupdate
+Name=System Update Settings
+Name[zh_CN]=系统更新设置
+X-KDE-Keywords=system,update,settings
+X-KDE-Keywords[zh_CN]=system,update,settings,系统,更新,设置
+Comment=System Update Settings
+Comment[zh_CN]=系统更新设置
+

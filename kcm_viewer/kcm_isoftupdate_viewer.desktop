@@ -1,0 +1,20 @@
+[Desktop Entry]
+Icon=system-software-update
+Categories=QT;KDE;X-KDE-settings-system;
+X-KDE-ParentApp=kinfocenter
+X-KDE-Library=kcm_isoftupdate_viewer
+
+X-KDE-Weight=40
+X-DocPath=isoftupdate/index.html
+
+Type=Service
+X-KDE-ServiceTypes=KCModule
+
+Exec=kcmshell5 kcm_isoftupdate_viewer
+Name=System Update Settings Viewer
+Name[zh_CN]=系统更新记录
+X-KDE-Keywords=system,update,settings,viewer
+X-KDE-Keywords[zh_CN]=system,update,settings,系统,更新,设置,查看
+Comment=System Update Settings Viewer
+Comment[zh_CN]=系统更新记录
+

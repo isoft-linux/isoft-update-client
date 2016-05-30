@@ -1,0 +1,233 @@
+# Chinese/Simplified translation of isoftupdateclient.
+# Copyright (C) 2015 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+# This file is distributed under the same license as the isoftupdateclient package.
+# Leslie Zhai <xiang.zhai@i-soft.com.cn>, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-13 11:20+0800\n"
+"PO-Revision-Date: 2015-08-27 16:21+0800\n"
+"Last-Translator: Leslie Zhai <xiang.zhai@i-soft.com.cn>\n"
+"Language-Team: Leslie Zhai <xiang.zhai@i-soft.com.cn>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#, c-format
+msgid "Updating / installing...\n"
+msgstr "升级 / 安装...\n"
+
+#, c-format
+msgid "Cleaning up / removing...\n"
+msgstr "清空 / 删除...\n"
+
+msgid "Preparing..."
+msgstr "准备..."
+
+msgid "Preparing packages..."
+msgstr "准备包..."
+
+msgid ""
+"Provides D-Bus interfaces for querying and manipulating\n"
+"iSOFT Update information."
+msgstr "普华更新提供DBus接口进行系统更新"
+
+msgid "Failed to install rpm file"
+msgstr "安装rpm失败"
+
+#, c-format
+msgid "Failed to parse xml file %s"
+msgstr "解析XML文件 %s 失败"
+
+#, c-format
+msgid "Failed to check md5sum for file %s"
+msgstr "文件 %s 的md5值不正确"
+
+msgid "ERROR: failed to run prescript"
+msgstr ""
+
+msgid "ERROR: failed to run postscript"
+msgstr ""
+
+msgid "Failed to install rpm packages"
+msgstr ""
+
+msgid "Task locked"
+msgstr "任务锁"
+
+msgid "iSOFT Update Daemon"
+msgstr "普华更新守护进程"
+
+msgid "iSOFT Update Daemon Installer in Progress"
+msgstr "普华更新守护进程正在安装更新"
+
+msgid "Failed to get md5sum file"
+msgstr "获取md5文件失败"
+
+#, c-format
+msgid "md5sum %s is wrong"
+msgstr ""
+
+#, c-format
+msgid "Failed to decompress %s"
+msgstr "解压缩 %s 失败"
+
+#, c-format
+msgid "Failed to parse updates xml file %s"
+msgstr "解析升级XML文件 %s 失败"
+
+#, c-format
+msgid "Failed to open %s"
+msgstr "打开 %s 失败"
+
+#, c-format
+msgid "%s is empty"
+msgstr "%s 是空的"
+
+msgid "Failed to allocate memory"
+msgstr "分配内存失败"
+
+#, c-format
+msgid "Failed to download %s"
+msgstr "下载 %s 失败"
+
+#, c-format
+msgid "Downloaded: %s\n"
+msgstr "已下载: %s\n"
+
+msgid "iSOFT Update Console"
+msgstr "普华更新终端"
+
+msgid "Update is disable"
+msgstr "更新被禁用"
+
+msgid "Download error"
+msgstr "下载出错"
+
+msgid "Install error"
+msgstr "安装出错"
+
+msgid "There is nothing to do today"
+msgstr "系统已经更新到最新版本"
+
+msgid "Downloading %1"
+msgstr "正在下载更新 %1"
+
+msgid "Installing %1"
+msgstr ""
+"正在安装更新 %1\n"
+"在系统升级安装过程中请勿关机或断电，\n"
+"否则可能造成系统无法正常启动。"
+
+msgid "Manual Download"
+msgstr "手动下载"
+
+msgid "Downloaded Update"
+msgstr "更新已下载"
+
+msgid "Manual Install"
+msgstr "手动安装"
+
+msgid "Installed Update"
+msgstr "更新已安装"
+
+msgid "Manual Check"
+msgstr "手动检查更新"
+
+msgid "Manual Reboot"
+msgstr "手动重启"
+
+msgid "System Update Progress"
+msgstr "系统更新进度"
+
+msgid "System Update Settings"
+msgstr "系统更新管理面板"
+
+msgid "Configuration"
+msgstr "基本设置"
+
+msgid "Enable Update:"
+msgstr "开启更新:"
+
+msgid "It will automatically check update if enable update.\n"
+msgstr "此按钮开启时，将按照自动检查时间间隔进行更新检查。\n"
+
+msgid "Automatic Download:"
+msgstr "自动下载:"
+
+msgid ""
+"If this check box is checked, it will automatically download packages.\n"
+msgstr "此按钮开启时，将自动下载系统更新。\n"
+
+msgid "Automatic Install:"
+msgstr "自动安装:"
+
+msgid "If this check box is checked, it will automatically install packages.\n"
+msgstr "此按钮开启时，将自动安装系统更新。\n"
+
+msgid "20 minutes"
+msgstr "20分钟"
+
+msgid "1 hour"
+msgstr "1小时"
+
+msgid "1 day"
+msgstr "1天"
+
+msgid "Listening NetworkManager Signal:StateChanged."
+msgstr "正在监听\"网络设置\"状态改变信号。"
+
+msgid "Set Update Duration:"
+msgstr "自动检查时间间隔:"
+
+msgid "<a href=\"#\">Update Record</a>"
+msgstr "<a href=\"#\">更新记录</a>"
+
+msgid "<a href=\"#\">Version</a>"
+msgstr "<a href=\"#\">版本信息</a>"
+
+msgid "Name"
+msgstr "名称"
+
+msgid "Status"
+msgstr "状态"
+
+msgid "Type"
+msgstr "更新类型"
+
+msgid "Date"
+msgstr "日期"
+
+msgid "Summary"
+msgstr "更新描述"
+
+msgid ""
+"<p>If the list is empty, try checking the log file is exists or not.</p>"
+msgstr "<p>如果此列表为空，请检查更新日志文件是否存在。</p>"
+
+msgid "Clean all"
+msgstr "清除记录"
+
+msgid "Succeed"
+msgstr "成功"
+
+msgid "Failed"
+msgstr "失败"
+
+msgid "Uninstalled"
+msgstr "未安装"
+
+msgid "bugfix"
+msgstr "缺陷修复"
+
+msgid "update"
+msgstr "系统更新"
+
+msgid "security"
+msgstr "安全更新"
+
+msgid "unknown"
+msgstr "未知"

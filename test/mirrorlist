@@ -1,0 +1,9 @@
+##
+## iSOFT Linux Update mirrorlist
+## Generated on 2015-08-13
+## 
+
+Server = http://mirrors.sohu.com/isoftlinux/update
+
+Server = http://update.isoft-linux.org
+

@@ -1,0 +1,43 @@
+work flow
+----------
+
+                  get_mirrorlist
+                         |
+                         |
+     -----------> check_update
+     |                   |
+     |                   |
+     |<----YES---- is_task_lock
+     |                   |
+     |                   |
+     |                  NOPE
+     |                   |
+     |                   |
+     |            get_update_file
+update_duration          |
+     |                   |
+     |            check_update_validate
+     |                   |
+     |                   |
+     ----NOPE---- check_need_update
+                         |
+                         |   
+                        YES
+                         |
+                         |
+                  task_lock
+                         |
+                         |
+                  get_upt_files
+                         |
+                         |
+                  check_upt_validate
+                         |
+                         |
+                  merge_reboot
+                         |
+                         |
+                  install_upate_packages
+                         |
+                         |
+                  task_unlock

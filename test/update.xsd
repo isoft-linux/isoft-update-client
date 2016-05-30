@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<!-- ===================== define simple tpye =================== -->
+<xs:element name="id">
+	<xs:simpleType>
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="15"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:element>
+
+<xs:element name="type">
+	<xs:simpleType>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="bugfix"/>
+			<xs:enumeration value="update"/>
+			<xs:enumeration value="security"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:element>
+
+<xs:element name="arch">
+	<xs:simpleType>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="x86"/>
+			<xs:enumeration value="x86_64"/>
+			<xs:enumeration value="loongson"/>
+			<xs:enumeration value="sw"/>
+			<xs:enumeration value="mips"/>
+			<xs:enumeration value="alpha"/>
+			<xs:enumeration value="arm"/>
+			<xs:enumeration value="ppc"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:element>
+
+<xs:element name="date" type="xs:date"/>
+<xs:element name="osversion" type="xs:string"/>
+<xs:element name="filename" type="xs:string"/>
+<xs:element name="md5sum" type="xs:string"/>
+<xs:element name="item" type="xs:string"/>
+<xs:element name="prescript" type="xs:boolean"/>
+<xs:element name="postscript" type="xs:boolean"/>
+<xs:element name="needreboot" type="xs:boolean"/>
+
+
+<!-- ================== define attribute ===================== -->
+<xs:attribute name="lang">
+	<xs:simpleType>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="en"/>
+			<xs:enumeration value="zh_CN"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:attribute>
+
+<!-- ================= define complex type ================== -->
+
+<xs:element name="summary">
+	<xs:complexType>
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute ref="lang"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="description">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element ref="item" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute ref="lang"/>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="rpm">
+	<xs:complexType>
+		<xs:all>
+			<xs:element ref="filename"/>
+			<xs:element ref="md5sum"/>
+		</xs:all>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="packages">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element ref="rpm" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="update">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element ref="id"/>
+			<xs:element ref="type"/>
+			<xs:element ref="arch"/>
+			<xs:element ref="date"/>
+			<xs:element ref="osversion"/>
+			<xs:element ref="summary" maxOccurs="unbounded"/>
+			<xs:element ref="description" maxOccurs="unbounded"/>
+			<xs:element ref="packages"/>
+			<xs:element ref="prescript"/>
+			<xs:element ref="postscript"/>
+			<xs:element ref="needreboot"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+
+</xs:schema>

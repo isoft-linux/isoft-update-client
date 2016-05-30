@@ -1,0 +1,5 @@
+#!/bin/sh
+
+__FILE__=`basename $0`
+
+echo "Hello I am ${__FILE__}"

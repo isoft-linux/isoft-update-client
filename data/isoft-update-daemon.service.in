@@ -1,0 +1,14 @@
+[Unit]
+Description=iSOFT Update Service
+
+After=network.target
+Wants=network.target
+
+[Service]
+Type=dbus
+BusName=org.isoftlinux.Update
+ExecStart=@CMAKE_INSTALL_FULL_BINDIR@/isoft-update-daemon
+StandardOutput=syslog
+
+[Install]
+WantedBy=multi-user.target
