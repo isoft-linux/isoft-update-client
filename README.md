@@ -1,6 +1,6 @@
 isoft-update-client
 --------------------
-iSOFT Update Client.
+iSOFT System (Offline) Update Client.
 
 ## Build && Install
 
