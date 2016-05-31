@@ -25,6 +25,7 @@ sudo pacman -S packagekit
 Change update script to your own
 ```
 cd /usr/lib/systemd/system/system-update.target.wants/
+mv packagekit-offline-update.service packagekit-offline-update.service.bak
 cp ../packagekit-offline-update.service ../isoft-offline-update.service
 ```
 
@@ -32,7 +33,8 @@ Edit ExecStart=/usr/lib/isoft-update-client/isoft-offline-update
 
 ```
 #!/bin/bash 
-echo "iSOFTLinux Offline System Updating..."
+plymouth display-message --text="iSOFTLinux Offline System Updating..."
 sleep 13
 rm /system-update
+reboot
 ```
