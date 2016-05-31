@@ -1,6 +1,6 @@
 ## iSOFTLinux System Update Daemon WorkFlow
 
-[iSOFTLinux System Update daemon workflow](https://raw.github.com/isoft-linux/isoft-update-client/master/daemon/flow1.png)
+[iSOFTLinux System Update daemon workflow](https://raw.githubusercontent.com/isoft-linux/isoft-update-client/master/daemon/flow1.png)
 
 ***DISADVANTAG*** of installing Update packages during libraries and services that are currently running:
 
@@ -8,7 +8,7 @@
 * hardware off will break it too;
 * conflicts.
 
-[iSOFTLinux Offline System Updates with the help of systemd](https://raw.github.com/isoft-linux/isoft-update-client/master/daemon/flow2.png)
+[iSOFTLinux Offline System Updates with the help of systemd](https://raw.githubusercontent.com/isoft-linux/isoft-update-client/master/daemon/flow2.png)
 
 ***ADVANAGE*** of systemd offline system update:
 * systemd booted into special system-update.target with a few of services started;
