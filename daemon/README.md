@@ -25,6 +25,7 @@ Change update script to your own
 ```
 $ mkdir /usr/lib/systemd/system/system-update.target.wants
 $ touch /usr/lib/systemd/system/isoft-offline-update.service
+$ ln -s /usr/lib/systemd/system/isoft-offline-update.service /usr/lib/systemd/system/system-update.target.wants/isoft-offline-update.service
 ```
 
 isoft-offline-update.service
