@@ -4,11 +4,11 @@
 
 ***DISADVANTAGE*** of installing Update packages during libraries and services that are currently running:
 
-* command line reboot or poweroff will break the update workflow;
-* hardware off will break it too;
-* conflicts.
+* command line ```reboot``` or ```poweroff``` will break the update workflow;
+* hardware turn off computer will break too;
+* conflicts with running services.
 
-![iSOFTLinux Offline System Updates with the help of systemd](https://raw.github.com/isoft-linux/isoft-update-client/master/daemon/flow2.png)
+![iSOFTLinux Offline System Update](https://raw.github.com/isoft-linux/isoft-update-client/master/daemon/flow2.png)
 
 ***ADVANTAGE*** of systemd offline system update:
 * systemd booted into special system-update.target with a few of services started;
@@ -35,6 +35,7 @@ Edit ExecStart=/usr/lib/isoft-update-client/isoft-offline-update
 #!/bin/bash 
 plymouth display-message --text="iSOFTLinux Offline System Updating..."
 sleep 13
+plymouth display-message --text="Updated successfully, rebooting..."
 rm /system-update
 reboot
 ```
