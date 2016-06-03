@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-13 11:20+0800\n"
+"POT-Creation-Date: 2016-06-03 15:51+0800\n"
 "PO-Revision-Date: 2015-08-27 16:21+0800\n"
 "Last-Translator: Leslie Zhai <xiang.zhai@i-soft.com.cn>\n"
 "Language-Team: Leslie Zhai <xiang.zhai@i-soft.com.cn>\n"
@@ -93,6 +93,15 @@ msgstr "分配内存失败"
 #, c-format
 msgid "Failed to download %s"
 msgstr "下载 %s 失败"
+
+msgid "Installing Updates"
+msgstr "正在安装..."
+
+msgid "Rebooting after installing updates…"
+msgstr ""
+
+msgid "Shutting down after installing updates…"
+msgstr ""
 
 #, c-format
 msgid "Downloaded: %s\n"

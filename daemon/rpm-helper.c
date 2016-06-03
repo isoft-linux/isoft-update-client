@@ -235,7 +235,7 @@ static void do_install(gpointer data, gpointer user_data)
     *pstr='\0';
     strcat(path,"/*.rpm");
 
-    g_print("%s %d:file[%s]\n",__FUNCTION__,__LINE__,data);
+    //g_print("%s %d:file[%s]\n",__FUNCTION__,__LINE__,data);
     write_debug_log("%s, line %d: will install:%s\n", __func__, __LINE__, data);
 
     rpmts ts = NULL;
@@ -289,7 +289,7 @@ static void do_install(gpointer data, gpointer user_data)
     write_log(LOG_NOTICE,"rpm apt:getenv lc_all[%s]",str);
 #endif
     ret= rpmInstall(ts, ia, (ARGV_t) poptGetArgs(optCon));
-    g_print("%s %d:file[%s] ret[%d]\n",__FUNCTION__,__LINE__,data,ret);
+    //g_print("%s %d:file[%s] ret[%d]\n",__FUNCTION__,__LINE__,data,ret);
     if (ret != 0) {
         double progress = 110.0;
         g_progress_handle(&progress, m_arg_data,NULL);

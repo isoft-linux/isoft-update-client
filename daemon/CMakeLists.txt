@@ -44,3 +44,23 @@ target_link_libraries(isoft-update-daemon
 )
 
 install(TARGETS isoft-update-daemon RUNTIME DESTINATION bin)
+
+add_executable(isoft-offline-update
+    isoft-offline-update.c
+    packagekit-glib2/pk-progress-bar.c
+    utils.c
+    md5.c
+    rpm-helper.c
+)
+target_link_libraries(isoft-offline-update
+    ${GLIB2_LIBRARIES}
+    ${GIO2_LIBRARIES}
+    ${LIBCURL_LIBRARIES}
+    ${LIBXML2_LIBRARIES}
+    ${LIBLZMA_LIBRARIES}
+    ${LIBTAR_LIBRARIES}
+    ${RPM_LIBRARIES}
+    ${POPT_LIBRARIES}
+    systemd
+)
+

@@ -163,7 +163,7 @@ int utils_create_md5file(const char *file)
 static int g_log_level = LOG_NOTICE;
 static pthread_mutex_t g_log_lock = PTHREAD_MUTEX_INITIALIZER;
 static int g_log_lock_inited = 0;
-static char g_program_name[] = "isoft-update-daemon";
+static char g_program_name[64] = "isoft-update-daemon";
 static char *g_get_log_level_name[] = {
     "EMERG",
     "ALERT",
@@ -175,6 +175,14 @@ static char *g_get_log_level_name[] = {
     "DEBUG",
     ""
 };
+
+int set_program_name(const char *name)
+{
+    if(name != NULL ){
+        snprintf(g_program_name, sizeof(g_program_name),"%s",name);
+    }
+}
+
 
 static int get_next_log_file(const char *date,char *dst_file,int dst_len)
 {

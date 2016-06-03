@@ -46,6 +46,7 @@ extern int utils_create_md5file(const char *file);
 * 5.int set_write_log_level(int log_level); set default level to @log_level
 */
 extern int set_write_log_level(int log_level);
+extern int set_program_name(const char *name);
 extern int _write_log(const char *fmt,...);
 extern int write_log(int log_level,const char *fmt,...);
 extern int write_error_log(const char *fmt,...);
