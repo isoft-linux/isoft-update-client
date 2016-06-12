@@ -1355,105 +1355,6 @@ cleanup:
     return ret;
 }
 
-static void
-get_desc_node(xmlDocPtr  doc,
-             xmlNodePtr cur,
-             char desc_buffer[512])
-{
-    gchar *desc = NULL;
-    char buffer[512]="";
-    int  max = 10,i =0,len = 0;
-    if(!cur)
-        return;
-    while (cur) {
-        if (!xmlStrcmp(cur->name, (const xmlChar *)"description")) {
-            break;
-        } else
-            cur = cur->xmlChildrenNode;
-    }
-    if(!cur)
-        return;
-    cur = cur->xmlChildrenNode;
-    desc_buffer[0]=0;
-    while (cur) {
-        desc = NULL;
-        if (!xmlStrcmp(cur->name, (const xmlChar *) "item")) {
-            desc = (gchar*)xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
-            if (desc) {
-                i ++;
-                snprintf(buffer,sizeof(buffer),"%s///",desc);
-            }
-            if (i <= max) {
-                len = 510 - strlen(desc_buffer);
-                if (len > strlen(buffer)) {
-                    strcat(desc_buffer,buffer);
-                } else
-                    break;
-            } else
-                break;
-
-            memset(buffer,0,sizeof(buffer));
-
-        }
-        cur = cur->next;
-    }
-
-    return;
-}
-
-static void
-get_xml_node_value(const char *upt_xml_file,const char *pType,char retValue[512])
-{
-    xmlDocPtr doc;
-    xmlNodePtr cur;
-    gchar *type = NULL;
-    if (!upt_xml_file || !pType)
-        goto cleanup;
-
-    doc = xmlParseFile(upt_xml_file);
-    if (!doc) {
-        write_error_log("ERROR: failed to parse xml file %s", upt_xml_file);
-        goto cleanup;
-    }
-
-    cur = xmlDocGetRootElement(doc);
-    if (!cur) {
-        write_error_log("ERROR: failed to get xml file[%s] root node",upt_xml_file);
-        goto cleanup;
-    }
-
-    if(xmlStrcmp(cur->name, (const xmlChar *)"update")){
-        write_debug_log("%s, line %d:Xml file[%s] format error. \n",
-                __func__, __LINE__,upt_xml_file);
-        goto cleanup;
-    }
-
-    cur = cur->xmlChildrenNode;
-    while (cur != NULL) {
-        if (!xmlStrcmp(cur->name, (const xmlChar *)pType)) {
-            if(strcmp("description",pType) ==0) {
-                get_desc_node(doc,cur,retValue);
-                break;
-
-            } else {
-                type = (gchar*)xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
-                snprintf(retValue,63,"%s",type);
-                break;
-            }
-        }
-
-        cur = cur->next;
-    }
-
-cleanup:
-    if (doc) {
-        xmlFreeDoc(doc);
-        doc = NULL;
-    }
-
-    return ;
-
-}
 
 static void
 register_update_xml(Daemon *daemon)
@@ -1521,6 +1422,73 @@ inhibit_install_done(GObject        *source_object,
     write_debug_log("%s, line %d: %d", __func__, __LINE__, daemon->priv->upt_list);
     // TODO: duplicate data in upt_list(autodownload && not autoinstall) + (manual check)
     daemon->priv->upt_list = g_list_sort(daemon->priv->upt_list, upt_sort_func);
+
+    /* new routine */
+#if 1
+    status = symlink(DOWNLOAD_DIR,PK_OFFLINE_TRIGGER_FILENAME);
+    if(status !=0 ){
+        // maybe run it two times
+        write_error_log("failed to create symlink for dir[%s],error info[%s]",DOWNLOAD_DIR, strerror(errno));
+        //return ;
+    }
+
+    FILE *fd_cfg = fopen(PK_OFFLINE_TRIGGER_FILENAME"/"PK_OFFLINE_PKGS_CFG_FILE,"a+");
+    if (!fd_cfg) {
+        write_error_log("failed to open cfg file[%s]",PK_OFFLINE_TRIGGER_FILENAME"/"PK_OFFLINE_PKGS_CFG_FILE);
+        return ;
+    }
+
+    for (l = daemon->priv->upt_list; l; l = g_list_next(l)) {
+        if (strlen(l->data) - strlen(UPT_EXT) < 1)
+            continue;
+
+        outdir = g_strndup(l->data, strlen(l->data) - strlen(UPT_EXT));
+        if (!outdir)
+            continue;
+
+        if (archive_unpack(l->data, outdir) == -1) {
+            write_error_log("ERROR: failed to unpack upt file %s", l->data);
+            remove(l->data);
+            if (outdir) {
+                g_free(outdir);
+                outdir = NULL;
+            }
+            continue;
+        }
+
+        /* after unpack upt, create symbolic link ,then continue.*/
+        const char *p = strrchr((char *)outdir,'/');
+        if (p) {
+            p++;
+            fputs(p,fd_cfg);
+            fputs("\n",fd_cfg);
+
+        } else {
+            write_error_log("ERROR: outdir[%s] is invalid.", outdir);
+        }
+
+        if (outdir) {
+            g_free(outdir);
+            outdir = NULL;
+        }
+    }
+
+    fclose(fd_cfg);
+    fd_cfg = NULL;
+
+    if (data) {
+        g_variant_unref(data);
+        data = NULL;
+    }
+
+    if (fd != -1) {
+        close(fd);
+        fd = -1;
+    }
+    return ;
+
+#endif
+
     for (l = daemon->priv->upt_list; l; l = g_list_next(l)) {
 
         /* to write upt name to log files */
@@ -1555,6 +1523,14 @@ inhibit_install_done(GObject        *source_object,
             write_error_log("ERROR: failed to open %s", packages_dir);
             goto next;
         }
+        /*
+         * outdir =[/var/cache/isoft-update/update-2016-05-20-2-x86_64]
+         * => ln -s /var/cache/isoft-update /system-update
+         *
+        2016-05-25 15:04:32 (isoft-update-daemon:24815): DEBUG: inhibit_install_done, line 1552:
+                                                         /var/cache/isoft-update/update-2016-05-20-2-x86_64/update/packages
+                                                         ,upt[/var/cache/isoft-update/update-2016-05-20-2-x86_64.upt]
+        */
 
         if (rpm_list) {
             g_list_free(rpm_list);
@@ -1616,7 +1592,7 @@ next:
         char summary[512]="";
         get_xml_node_value(upt_xml_file,"summary",summary);
         char desc_buffer[512]="";
-        get_xml_node_value(upt_xml_file,"description",desc_buffer);
+        get_xml_node_value(upt_xml_file,"description",desc_buffer); // use <description lang="zh_CN">
         write_debug_log("%s, line %d: by[%s] get type[%s]\n", __func__, __LINE__, upt_xml_file,type);
         write_upt_reocord_file(upt_name,type,'i',rpm_install_ok?1:0,summary,desc_buffer);
 

@@ -13,7 +13,8 @@
 #include <errno.h>
 #include <error.h>
 #include "md5.h"
-
+#include <libxml/xmlmemory.h>
+#include <libxml/parser.h>
 
 /*
 * to write logs
@@ -25,6 +26,10 @@
 #define INSTALLED_LOG_FILE     UPT_RECORD_LOG_FILE_PATH"/updated.log"
 #define NOT_INSTALLED_LOG_FILE     UPT_RECORD_LOG_FILE_PATH"/updating.log"
 #define LOG_FILE_FILTER     "|||"
+
+#define PK_OFFLINE_TRIGGER_FILENAME "/system-update"
+#define PK_OFFLINE_PKGS_PATH "/system-update-doing"
+#define PK_OFFLINE_PKGS_CFG_FILE  ".record.cfg" // == /system-update-doing/.record.cfg
 
 
 #define error_exit(_errmsg_)	error(EXIT_FAILURE, errno, \
@@ -65,4 +70,10 @@ extern int write_debug_log(const char *fmt,...);
 extern int write_upt_reocord_file(const char *upt_name,const char *type,char action,int state,
                                   const char *summary,const char *desc);
 
+void
+get_xml_node_value(const char *upt_xml_file,const char *pType,char retValue[512]);
+void
+get_desc_node(xmlDocPtr  doc,
+             xmlNodePtr cur,
+             char desc_buffer[512]);
 #endif /* __UTILS_H__ */

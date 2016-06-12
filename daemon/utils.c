@@ -431,6 +431,106 @@ int write_upt_reocord_file(const char *upt_name,const char *type,char action,int
 }
 
 
+void
+get_desc_node(xmlDocPtr  doc,
+             xmlNodePtr cur,
+             char desc_buffer[512])
+{
+    char *desc = NULL;
+    char buffer[512]="";
+    int  max = 10,i =0,len = 0;
+    if(!cur)
+        return;
+    while (cur) {
+        if (!xmlStrcmp(cur->name, (const xmlChar *)"description")) {
+            break;
+        } else
+            cur = cur->xmlChildrenNode;
+    }
+    if(!cur)
+        return;
+    cur = cur->xmlChildrenNode;
+    desc_buffer[0]=0;
+    while (cur) {
+        desc = NULL;
+        if (!xmlStrcmp(cur->name, (const xmlChar *) "item")) {
+            desc = (char*)xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
+            if (desc) {
+                i ++;
+                snprintf(buffer,sizeof(buffer),"%s///",desc);
+            }
+            if (i <= max) {
+                len = 510 - strlen(desc_buffer);
+                if (len > strlen(buffer)) {
+                    strcat(desc_buffer,buffer);
+                } else
+                    break;
+            } else
+                break;
+
+            memset(buffer,0,sizeof(buffer));
+
+        }
+        cur = cur->next;
+    }
+
+    return;
+}
+
+void
+get_xml_node_value(const char *upt_xml_file,const char *pType,char retValue[512])
+{
+    xmlDocPtr doc;
+    xmlNodePtr cur;
+    char *type = NULL;
+    if (!upt_xml_file || !pType)
+        goto cleanup;
+
+    doc = xmlParseFile(upt_xml_file);
+    if (!doc) {
+        write_error_log("ERROR: failed to parse xml file %s", upt_xml_file);
+        goto cleanup;
+    }
+
+    cur = xmlDocGetRootElement(doc);
+    if (!cur) {
+        write_error_log("ERROR: failed to get xml file[%s] root node",upt_xml_file);
+        goto cleanup;
+    }
+
+    if(xmlStrcmp(cur->name, (const xmlChar *)"update")){
+        write_debug_log("%s, line %d:Xml file[%s] format error. \n",
+                __func__, __LINE__,upt_xml_file);
+        goto cleanup;
+    }
+
+    cur = cur->xmlChildrenNode;
+    while (cur != NULL) {
+        if (!xmlStrcmp(cur->name, (const xmlChar *)pType)) {
+            if(strcmp("description",pType) ==0) {
+                get_desc_node(doc,cur,retValue);
+                //break;
+
+            } else {
+                type = (char*)xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
+                snprintf(retValue,63,"%s",type);
+                //break;
+            }
+        }
+
+        cur = cur->next;
+    }
+
+cleanup:
+    if (doc) {
+        xmlFreeDoc(doc);
+        doc = NULL;
+    }
+
+    return ;
+
+}
+
 #if 0
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! need be recoded !!!!!!!!!!! */
 char *utils_replace_string(char *str, const char *src, const char *dest)

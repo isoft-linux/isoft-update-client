@@ -258,8 +258,10 @@ static void do_install(gpointer data, gpointer user_data)
             ia->transFlags |= RPMTRANS_FLAG_NODOCS;
     }
 
-    // pkg is already exist, replace it
+    // pkg is already exist, rpm --force
     ia->probFilter |= RPMPROB_FILTER_REPLACEPKG;
+    //ia->probFilter |= RPMPROB_FILTER_REPLACEOLDFILES;
+    ia->probFilter |= RPMPROB_FILTER_OLDPACKAGE;
     write_log(LOG_NOTICE,"rpm probFilter:use RPMPROB_FILTER_REPLACEPKG!");
 
     if (ia->noDeps)
