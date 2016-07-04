@@ -64,3 +64,4 @@ target_link_libraries(isoft-offline-update
     systemd
 )
 
+install(TARGETS isoft-offline-update RUNTIME DESTINATION bin)

@@ -34,6 +34,8 @@
 
 #include "updategenerated.h"
 
+// #define USEAUTOINSTALL
+
 K_PLUGIN_FACTORY(Factory,
         registerPlugin<KCMISoftUpdate>();
         )
@@ -132,7 +134,9 @@ KCMISoftUpdate::KCMISoftUpdate(QWidget *parent, const QVariantList &)
 
     connect(_enableUpdate, SIGNAL(clicked()), this, SLOT(enableChanged()));
     connect(_autoDlBox, SIGNAL(clicked()), this, SLOT(autoDlChanged()));
+#ifdef USEAUTOINSTALL
     connect(_autoInstallBox, SIGNAL(clicked()), this, SLOT(changed()));
+#endif
     connect(_setUptDuration, SIGNAL(currentIndexChanged(int)), this, SLOT(uptDurationChanged(int)));
 
 }
@@ -144,6 +148,7 @@ KCMISoftUpdate::~KCMISoftUpdate()
 void KCMISoftUpdate::autoDlChanged()
 {
     bool autoDl = _autoDlBox->isChecked();
+#ifdef USEAUTOINSTALL
     bool autoINstall = _autoInstallBox->isChecked();
     if (!autoDl) {
         _autoInstallBox->setEnabled(autoDl);
@@ -151,6 +156,7 @@ void KCMISoftUpdate::autoDlChanged()
     else {
         _autoInstallBox->setEnabled(true);
     }
+#endif
 
     changed();
 
@@ -163,13 +169,15 @@ void KCMISoftUpdate::enableChanged()
     bool autoDL = _autoDlBox->isChecked();
 
     _autoDlBox->setEnabled(enable);
+#ifdef USEAUTOINSTALL
     _autoInstallBox->setEnabled(enable);
+#endif
     _setUptDuration->setEnabled(enable);
-
+#ifdef USEAUTOINSTALL
     if (!autoDL) {
         _autoInstallBox->setEnabled(autoDL);
     }
-
+#endif
     changed();
 
 }
@@ -190,19 +198,24 @@ void KCMISoftUpdate::load()
 
     _enableUpdate->setChecked(enable);
     _autoDlBox->setChecked(autoDownload);
+#ifdef USEAUTOINSTALL
     _autoInstallBox->setChecked(autoInstall);
-
+#endif
     int index = getDurIndex(updateDuration);
     _setUptDuration->setCurrentIndex(index);
 
     _autoDlBox->setEnabled(enable);
+#ifdef USEAUTOINSTALL
     _autoInstallBox->setEnabled(enable);
+#endif
     _setUptDuration->setEnabled(enable);
-
+#ifdef USEAUTOINSTALL
     if (!autoDownload) {
         _autoInstallBox->setEnabled(autoDownload);
     }
-
+#else
+    _autoInstallBox->setEnabled(false);
+#endif
 }
 
 int KCMISoftUpdate::getDurIndex(qulonglong Duration)
@@ -266,11 +279,12 @@ void KCMISoftUpdate::save()
         m_update->SetAutoDownload(_autoDlBox->isChecked());
         changed = true;
     }
+#ifdef USEAUTOINSTALL
     if (autoInstall != _autoInstallBox->isChecked()) {
         m_update->SetAutoInstall(_autoInstallBox->isChecked());
         changed = true;
     }
-
+#endif
     int index = getDurIndex(updateDuration);
     if( index != _setUptDuration->currentIndex()) {
         index = _setUptDuration->currentIndex();

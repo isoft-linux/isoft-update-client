@@ -137,7 +137,7 @@ Item {
             if (status == 1) {
                 infoText.text = i18n("Downloaded Update");
                 infoBtn.anchors.top = infoText.bottom;
-                infoBtn.text = i18n("Manual Install");
+                infoBtn.text = i18n("Reboot to install"); //i18n("Manual Install");
             } else if (status == 2) {
                 infoText.text = i18n("Installed Update");
                 infoBtn.anchors.top = infoText.bottom;
@@ -225,7 +225,9 @@ Item {
                     isoftUpdate.downloadUpdate(root.updateFile);
                     updateListView.visible = false;
                 } else if (root.updateAction == 2) {
-                    isoftUpdate.installUpdate();
+                    // reboot, then will install...
+                    //isoftUpdate.installUpdate();
+                    isoftUpdate.reboot();
                 } else if (root.updateAction == 3) {
                     isoftUpdate.reboot();
                 }
